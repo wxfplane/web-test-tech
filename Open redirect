@@ -1,0 +1,7 @@
+Exploit方向：
+1. 基本的Phishing
+2. 尝试是否可触发如下攻击：
+  SSRF
+  OAuth token disclosure
+  XSS
+  CRLF injection
