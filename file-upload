@@ -1,0 +1,24 @@
+文件上传功能应从以下两个角度来测试：
+
+1.验证是否可上传并执行web shell
+如果采取黑名单/白名单过滤机制，且服务器有读取上传的文件名变量作为文件的引用名（当前已很少见）：
+  文件后缀：后缀名暴力测试，来验证是否可绕过黑名单机制；
+  文件名：加路径来验证是否可实现目录穿越，以及覆盖服务器配置文件；
+  后缀混淆：利用特殊符号（. 空格 /  \ ：） 以及encode unicode等方式绕过检测
+
+2.其他测试方法（如遇到上传到特定的文件服务器，上传文件后由服务器随机命名文件名和后缀）
+  内容未限制：可利用HTML、SVG、JS等构造XSS脚本，在客户端执行脚本
+  内容处理：服务端在读取或处理上传的文件时，可利用xml文件、doc、xls等构造XXE， 或利用旧版图片处理工具的漏洞来触发远程代码执行漏洞。
+  PUT上传
+  
+  
+ASP / ASPX / PHP5 / PHP / PHP3: Webshell / RCE
+SVG: Stored XSS / SSRF / XXE
+GIF: Stored XSS / SSRF
+CSV: CSV injection
+XML: XXE
+AVI: LFI / SSRF
+HTML / JS : HTML injection / XSS / Open redirect
+PNG / JPEG: Pixel flood attack (DoS)
+ZIP: RCE via LFI / DoS
+PDF / PPTX: SSRF / BLIND XXE
