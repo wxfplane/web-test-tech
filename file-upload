@@ -22,3 +22,4 @@ HTML / JS : HTML injection / XSS / Open redirect
 PNG / JPEG: Pixel flood attack (DoS)
 ZIP: RCE via LFI / DoS
 PDF / PPTX: SSRF / BLIND XXE
+DOC XXE
