@@ -1,0 +1,9 @@
+1. 注入进HTML内部
+  如果< or >被encode或删除，则不会触发该类漏洞。此时可考虑是否会触发CSTI类型漏洞。
+  如果通过黑名单、白名单等过滤tags/attributes来防止XSS，则可通过以下几种暴力破解来尝试绕过过滤机制。
+    a. 利用Burp intruder来尝试https://portswigger.net/web-security/cross-site-scripting/cheat-sheet 中的tags/attributes
+    b. 自定义tag来触发JS脚本 <xss+id=x+onfocus=alert(document.cookie)+tabindex=1>#x   <xss+id%3dx+onfocus%3dalert(document.cookie)+tabindex%3d1>#x
+    c. 采取大小写、编码、重用、小XSS脚本等方式来尝试绕过过滤。
+    d. 当无法触发JS脚本时，可考虑HTML injection
+    
+    
