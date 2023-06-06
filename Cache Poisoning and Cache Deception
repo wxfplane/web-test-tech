@@ -1,0 +1,8 @@
+要挖掘这两类漏洞，首先要做的就是查看页面是否会被Cache。以下Headers中参数可用来确定该页面在服务器或用户终端是否会被Cache
+1. X-Cache： in the response may have the value miss when the request wasn't cached and the value hit when it is cached
+2. Cache-Control： indicates if a resource is being cached and when will be the next time the resource will be cached again: Cache-Control: public, max-age=1800
+3. Vary： is often used in the response to indicate additional headers that are treated as part of the cache key even if they are normally unkeyed.
+4. Age： defines the times in seconds the object has been in the proxy cache.
+5: Server-Timing: cdn-cache; desc=HIT also indicates that a resource was cached
+
+web cache poisoning：在request的header中修改或增加部分内容，该内容会出现在response中。利用Cache机制攻击者可把恶意内容注入到response中然后缓存，其他人访问该请求时会返回带有恶意内容的response。
