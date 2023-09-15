@@ -1,0 +1,14 @@
+1.变形邮件地址，以覆盖已存在的账号
+2.注册变形的邮件地址，发送邮件到另一个邮箱。
+
+The symbols: +, - and {}, () in rare occasions can be used for tagging and ignored by most e-mail servers
+
+uppsercase
+
+special characters in the email name (%00, %09, %20)
+
+Put black characters after the email: test@test.com a
+
+victim@gmail.com@attacker.com
+
+victim@attacker.com@gmail.com
