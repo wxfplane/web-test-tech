@@ -1,0 +1,15 @@
+Understanding API Types:
+
+1: SOAP/XML Web Services: Utilize the WSDL format for documentation, typically found at ?wsdl paths. Tools like SOAPUI and WSDLer (Burp Suite Extension) are instrumental for parsing and generating requests. Example documentation is accessible at DNE Online.
+
+2: REST APIs (JSON): Documentation often comes in WADL files, yet tools like Swagger UI provide a more user-friendly interface for interaction. Postman is a valuable tool for creating and managing example requests.
+
+3: GraphQL: A query language for APIs offering a complete and understandable description of the data in your API.
+
+
+With Burp Intruder and Extensions:
+
+1. supported HTTP methods
+2. supported content types (Content type converter)
+3. find hidden endpoints
+4. Finding hidden parameters
