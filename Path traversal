@@ -1,0 +1,6 @@
+1. 使用绝对路径
+2. %00.jpg or %00.png 等保留后缀测试
+3. 绝对路径 /etc/passwd or /windows/win.ini
+4. ....// or ....\/
+5. URL encode or other encode
+6. 注意文件路径，保留一定的路径来测试
