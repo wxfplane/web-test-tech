@@ -28,3 +28,41 @@ Origin: z[0x0d]Content-Type: text/html; charset=UTF-7
 HTTP/1.1 200 OK
 Access-Control-Allow-Origin: z
 Content-Type: text/html; charset=UTF-7
+
+绕过CSRF防护机制的技巧：
+1. Some applications correctly validate the token when the request uses the POST method but skip the validation when the GET method is used.
+
+2. Some applications correctly validate the token when the request uses the POST method but skip the validation when the GET method is used.
+
+3. Attacker can log in to the application using their own account, obtain a valid token, and then feed that token to the victim user in their CSRF attack.
+
+4. In a variation on the preceding vulnerability, some applications do tie the CSRF token to a cookie, but not to the same cookie that is used to track sessions. 
+
+5. Applications do not maintain any server-side record of tokens that have been issued, but instead duplicate each token within a cookie and a request parameter. 
+
+6. Bypassing SameSite Lax restrictions：
+<script>
+    document.location = 'https://vulnerable-website.com/account/transfer-payment?recipient=hacker&amount=1000000';
+</script>
+or
+<script>
+    document.location = "https://YOUR-LAB-ID.web-security-academy.net/my-account/change-email?email=pwned@web-security-academy.net&_method=POST";
+</script>
+
+7. If a cookie is set with the SameSite=Strict attribute, browsers won't include it in any cross-site requests. One possible gadget is a client-side redirect that dynamically constructs the redirection target using attacker-controllable input like URL parameters. For some examples, see our materials on DOM-based open redirection or sub-domain XSS.
+
+8. if a website doesn't include a SameSite attribute when setting a cookie, Chrome automatically applies Lax restrictions by default. However, to avoid breaking single sign-on (SSO) mechanisms, it doesn't actually enforce these restrictions for the first 120 seconds on top-level POST requests. As a result, there is a two-minute window in which users may be susceptible to cross-site attacks.
+# Bypass the popup blocker
+window.onclick = () => {
+    window.open('https://vulnerable-website.com/login/sso');
+}
+
+9. Some applications validate the Referer header when it is present in requests but skip the validation if the header is omitted.
+<meta name="referrer" content="never">
+
+10. if the application validates that the domain in the Referer starts with the expected value, then the attacker can place this as a subdomain of their own domain:
+http://vulnerable-website.com.attacker-website.com/csrf-attack
+Likewise, if the application simply validates that the Referer contains its own domain name, then the attacker can place the required value elsewhere in the URL:
+http://attacker-website.com/csrf-attack?vulnerable-website.com
+
+#You can override this behavior by making sure that the response containing your exploit has the Referrer-Policy: unsafe-url header set 
